@@ -5,14 +5,8 @@ FROM ubuntu:latest
 SHELL ["/bin/bash", "-c"]
 
 # Install required packages
-RUN apt clean
-RUN apt autoclean
-RUN apt update && apt -y upgrade
-RUN apt-get update
-RUN apt-get -y upgrade
-RUN apt-get install sudo
-RUN apt-get install make
-RUN apt-get install -y vim gdb clang gcc qemu tree git linux-headers-generic
+RUN apt-get -y update
+RUN apt-get install -y qemu linux-headers-generic build-essentials
 
 # Directory where our program will be executed
 workdir /pint-os
@@ -23,8 +17,8 @@ copy ./pintos/src/ /pint-os
 
 # Enviromental Variables 
 ENV PINTOS_HOME=/pint-os 
-ENV GDB_MACROS=${PINTOS_HOME}/src/mis/gdb-macros
-ENV PATH=$PINTOS_HOME/src/utils:${PATH}
+ENV GDB_MACROS=${PINTOS_HOME}/misc/gdb-macros
+ENV PATH=$PINTOS_HOME/utils:${PATH}
 
 
 
